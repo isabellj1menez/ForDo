@@ -1,0 +1,42 @@
+<div class="container">
+    <div class="jumbotron">
+
+        <h1>Things for do</h1>
+        <div class="form-group mt-2">
+            <label>What is going to do?</label>
+            <div [formGroup]=Formulario class="input-group mb-3">
+                <input formControlName="thing" type="text" class="form-control" placeholder="Escribe tu tarea" aria-describedby="button-addon2">
+                <div class="input-group-append">
+                    <button class="btn btn-outline-success" *ngIf="Formulario.valid" type="button" (click)="ObtenerThings()" id="button-addon2">Guardar tarea</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-12">
+                <table class="table table-striped text-center">
+                    <thead>
+                        <tr>
+                            <th>Task</th>
+                            <th>Date Create</th>
+                            <th>Change status </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let thing of Things">
+                            <td>{{thing.thing}}</td>
+                            <td>{{thing.created_date|date:'dd/MM/yy'}}</td>
+                            <td>
+                                <button type="button" class="btn" (click)="CambiarStatus(thing)" [ngClass]="{'btn-outline-success': thing.complete,'btn-outline-warning': !thing.complete}">
+                                    <span *ngIf="!thing.complete">Finalizar tearea?</span>
+                                    <span *ngIf="thing.complete">Tarea finalizada</span>
+                                </button>
+                                <button type="button" (click)="EliminarTarea(thing._id)" class="btn btn-outline-danger ml-2">Eliminar tarea</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
